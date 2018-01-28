@@ -1,7 +1,6 @@
 #!bin/bash
 abfragen () {
   echo "Einstellungsmöglichkeiten werden abgefragt ..."
-  read -p "Soll IPv6 global deaktiviert werden? (y/n) " ipv6
   read -p "Welche IP-Adresse soll dem Raspberry Pi zugewiesen werden? " ip
   read -p "Welche IP-Adresse soll als Gateway konfiguriert werden? " gateway
   read -p "Geben Sie die SSID, welche dem Hotspot zugewiesen werden soll: " ssid
@@ -27,37 +26,15 @@ pruefen () {
   fi
 }
 
-ausführen () {
-  schritt1
-  schritt2
-  schritt3
+ausfuehren () {
   schritt4
   schritt5
   schritt6
   abschluss
 }
 
-schritt1 () {
-  echo "Schritt 1 von 6: Installiere Updates ..."
-  if [ "$ipv6" = "y" ]
-    then sudo echo "net.ipv6.conf.all.disable_ipv6 = 1" >> /etc/sysctl.conf && sudo sysctl -p
-  fi
-  sudo apt update
-  sudo apt -y full-upgrade
-}
-
-schritt2 () {
-  echo "Schritt 2 von 6: Grundeinrichtung via raspi-config (außer hostname!)"
-  sudo raspi-config
-}
-
-schritt3 () {
-  echo "Schritt 3 von 6: Benötigte Programme werden installiert ..."
-  sudo apt -y install hostapd bridge-utils git
-}
-
 schritt4 () {
-  echo "Schritt 4 von 6: Netzwerk wird eingerichtet ..."
+  echo "Schritt 3 von 4: Netzwerk wird eingerichtet ..."
   sudo systemctl stop hostapd
   sudo echo -e "denyinterfaces wlan0\n\tdenyinterfaces eth0\n\t \n\tinterface br0" >> /etc/dhcpcd.conf
   sudo echo "static ip_address=$ip/24" >> /etc/dhcpcd.conf
@@ -67,7 +44,7 @@ schritt4 () {
 }
 
 schritt5 () {
-  echo "Schritt 5 von 6: Hotspot wird eingerichtet ..."
+  echo "Schritt 4 von 4: Hotspot wird eingerichtet ..."
   sudo echo "DAEMON_CONF="/etc/hostapd/hostapd.conf"" >> /etc/default/hostapd
   sudo cp hostapd.conf /etc/hostapd/hostapd.conf
   sudo echo "ssid=$ssid" >> /etc/hostapd/hostapd.conf
@@ -93,7 +70,7 @@ schritt6 () {
 }
 
 abschluss () {
-  echo "Einrichtung wird abgeschlossen (hostname). Raspberry Pi wird neu gestartet."
+  echo "Einrichtung wird abgeschlossen ..."
   sudo raspi-config
   read -p "Soll der Raspberry Pi neu gestartet werden? (y/n) " reboot
   if [[ "$reboot" = "y" ]]; then
