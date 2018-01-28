@@ -1,25 +1,25 @@
 #!bin/bash
-abfragen () {
-  echo "Einstellungsmöglichkeiten werden abgefragt ..."
-  read -p "Welche IP-Adresse soll dem Raspberry Pi zugewiesen werden? " ip
-  read -p "Welche IP-Adresse soll als Gateway konfiguriert werden? " gateway
-  read -p "Geben Sie die SSID, welche dem Hotspot zugewiesen werden soll: " ssid
-  read -p "Soll der SSID-Broadcast deaktiviert werden? (y/n) " broadcast
-  read -p "Geben sie das Passwort für den Hotspot ein: " passwort
-  read -p "Auf welchem Kanal soll gesendet werden? (1-9) " channel
-  read -p "Wie soll der Spotify-Connect Server Heißen? " name
-  read -p "Wollen Sie eine USB-Audio Karte als Standartausgabe Festlegen? (y/n) " audio
+input () {
+  echo "Getting settings ..."
+  read -p "What IP-adress should be assigned to this Raspberry Pi? " ip
+  read -p "What IP-adress should be set as gateway? " gateway
+  read -p "What SSID should be assigned to the hotspot? " ssid
+  read -p "Do You want to disable the SSID-broadcast? (y/n) " broadcast
+  read -p "Insert the passwort you want to use for the hotspot: " passwort
+  read -p "Wich channel should be used? (1-9) " channel
+  read -p "What name should be assigned to the Spotify-Connect server? " name
+  read -p "Do You want to set an USB-soundcard as output? (y/n) " audio
 }
 
-ausfuehren () {
-  schritt4
-  schritt5
-  schritt6
-  abschluss
+run () {
+  step3
+  step4
+  step5
+  finalize
 }
 
-schritt4 () {
-  echo "Schritt 3 von 5: Netzwerk wird eingerichtet ..."
+step3 () {
+  echo "Step 3 of 5: Setting up: network ..."
   sudo systemctl stop dhcpcd
   sudo systemctl disable dhcpcd
   sudo rm /etc/network/interfaces
@@ -28,8 +28,8 @@ schritt4 () {
   sudo echo "gateway $gateway" >> /etc/network/interfaces
 }
 
-schritt5 () {
-  echo "Schritt 4 von 5: Hotspot wird eingerichtet ..."
+step4 () {
+  echo "Step 4 of 5: Setting up: hotspot ..."
   sudo echo "DAEMON_CONF="/etc/hostapd/hostapd.conf"" >> /etc/default/hostapd
   sudo cp /home/pi/RasPi-Einrichtung/hostapd.conf /etc/hostapd/hostapd.conf
   sudo echo "ssid=$ssid" >> /etc/hostapd/hostapd.conf
@@ -41,8 +41,8 @@ schritt5 () {
   esac
 }
 
-schritt6 () {
-  echo "Schritt 5 von 5: Spotify-Connect Server wird eingerichtet ..."
+step5 () {
+  echo "Step 5 of 5: Setting up: Spotify-Connect server ..."
   sudo curl -sL https://dtcooper.github.io/raspotify/install.sh | sh
   sudo rm /etc/default/raspotify
   sudo cp /home/pi/RasPi-Einrichtung/raspotify /etc/default/raspotify
@@ -52,15 +52,11 @@ schritt6 () {
   fi
 }
 
-abschluss () {
-  echo "Einrichtung wird abgeschlossen ..."
+finalize () {
+  echo "Finalizing setup ..."
   sudo raspi-config
-  read -p "Soll der Raspberry Pi neu gestartet werden? (y/n) " reboot
-  if [ "$reboot" = "y" ]; then
-    sudo reboot
-  fi
 }
 
-abfragen
-ausfuehren
+input
+run
 exit
