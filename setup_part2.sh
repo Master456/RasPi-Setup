@@ -20,7 +20,11 @@ ausfuehren () {
 
 schritt4 () {
   echo "Schritt 3 von 5: Netzwerk wird eingerichtet ..."
+<<<<<<< HEAD
   sudo systemctl stop dhcpcd
+=======
+  sudo systemctl stop hostapd
+>>>>>>> 34ca207988abab6c9f27ec09ec3ff81777a7ceb8
   sudo echo "denyinterfaces wlan0" >> /etc/dhcpcd.conf
   sudo echo "denyinterfaces eth0" >> /etc/dhcpcd.conf
   sudo echo "interface br0" >> /etc/dhcpcd.conf
