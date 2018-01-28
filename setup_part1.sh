@@ -25,7 +25,8 @@ schritt2 () {
   git clone https://github.com/Master456/RasPi-Einrichtung.git /home/pi/RasPi-Einrichtung
 }
 
+
 abfragen
 ausfuehren
-echo "run: sudo sh /home/pi/RasPi-Einrichtung/setup_part2.sh"
+echo "Run: sudo sh /home/pi/RasPi-Einrichtung/setup_part2.sh"
 exit
