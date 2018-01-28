@@ -1,3 +1,4 @@
+<<<<<<< current
 #!bin/bash
 abfragen () {
   echo "Einstellungsmöglichkeiten werden abgefragt ..."
@@ -25,8 +26,13 @@ schritt2 () {
   git clone https://github.com/Master456/RasPi-Einrichtung.git /home/pi/RasPi-Einrichtung
 }
 
-
 abfragen
 ausfuehren
 echo "Run: sudo sh /home/pi/RasPi-Einrichtung/setup_part2.sh"
 exit
+=======
+#!/bin/bash
+echo "Lade benötigte Dateien herunter ..."
+git clone https://github.com/Master456/RasPi-Einrichtung.git /home/pi/RasPi-Einrichtung
+sh /home/pi/RasPi-Einrichtung/install_v2.sh
+>>>>>>> before discard

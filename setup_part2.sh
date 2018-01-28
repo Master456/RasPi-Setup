@@ -78,7 +78,6 @@ abschluss () {
   fi
 }
 
-
 abfragen
 #pruefen
 ausfuehren
