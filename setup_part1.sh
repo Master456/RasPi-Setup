@@ -18,7 +18,6 @@ schritt1 () {
   sudo apt -y full-upgrade
 }
 
-
 schritt2 () {
   echo "Schritt 2 von 4: Benötigte Programme werden installiert ..."
   sudo apt -y install hostapd bridge-utils git
