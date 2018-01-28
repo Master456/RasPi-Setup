@@ -27,5 +27,5 @@ schritt2 () {
 
 abfragen
 ausfuehren
-sudo sh /home/pi/RasPi-Einrichtung/setup_part2.sh
+echo "run: sudo sh /home/pi/RasPi-Einrichtung/setup_part2.sh"
 exit
