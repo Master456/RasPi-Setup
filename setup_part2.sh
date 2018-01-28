@@ -11,21 +11,6 @@ abfragen () {
   read -p "Wollen Sie eine USB-Audio Karte als Standartausgabe Festlegen? (y/n) " audio
 }
 
-pruefen () {
-  if [ "$ipv6" = "y" -o "$ipv6" = "n" ]; then
-    echo "Eingabe 1 Korrekt!"
-  else echo "Ungültige Eingabe für Frage 1! Starten Sie das Programm neu." && exit
-  fi
-  if [ "$broadcast" = "y" -o "$broadcast" = "n" ]; then
-    echo "Eingabe 5 Korrekt!"
-  else echo "Ungültige Eingabe für Frage 5! Starten Sie das Programm neu." && exit
-  fi
-  if [ "$audio" = "y" -o "$audio" = "n" ]; then
-    echo "Eingabe 9 Korrekt!"
-  else echo "Ungültige Eingabe für Frage 9! Starten Sie das Programm neu." && exit
-  fi
-}
-
 ausfuehren () {
   schritt4
   schritt5
@@ -34,9 +19,11 @@ ausfuehren () {
 }
 
 schritt4 () {
-  echo "Schritt 3 von 4: Netzwerk wird eingerichtet ..."
+  echo "Schritt 3 von 5: Netzwerk wird eingerichtet ..."
   sudo systemctl stop hostapd
-  sudo echo -e "denyinterfaces wlan0\n\tdenyinterfaces eth0\n\t \n\tinterface br0" >> /etc/dhcpcd.conf
+  sudo echo "denyinterfaces wlan0" >> /etc/dhcpcd.conf
+  sudo echo "denyinterfaces eth0" >> /etc/dhcpcd.conf
+  sudo echo "interface br0" >> /etc/dhcpcd.conf
   sudo echo "static ip_address=$ip/24" >> /etc/dhcpcd.conf
   sudo echo "static routers=$gateway" >> /etc/dhcpcd.conf
   sudo rm /etc/network/interfaces
@@ -44,7 +31,7 @@ schritt4 () {
 }
 
 schritt5 () {
-  echo "Schritt 4 von 4: Hotspot wird eingerichtet ..."
+  echo "Schritt 4 von 5: Hotspot wird eingerichtet ..."
   sudo echo "DAEMON_CONF="/etc/hostapd/hostapd.conf"" >> /etc/default/hostapd
   sudo cp /home/pi/RasPi-Einrichtung/hostapd.conf /etc/hostapd/hostapd.conf
   sudo echo "ssid=$ssid" >> /etc/hostapd/hostapd.conf
@@ -59,7 +46,7 @@ schritt5 () {
 }
 
 schritt6 () {
-  echo "Schritt 6 von 6: Spotify-Connect Server wird eingerichtet ..."
+  echo "Schritt 5 von 5: Spotify-Connect Server wird eingerichtet ..."
   sudo curl -sL https://dtcooper.github.io/raspotify/install.sh | sh
   sudo rm /etc/default/raspotify
   sudo cp /home/pi/RasPi-Einrichtung/raspotify /etc/default/raspotify
@@ -79,6 +66,5 @@ abschluss () {
 }
 
 abfragen
-#pruefen
 ausfuehren
 exit
