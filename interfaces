@@ -6,14 +6,21 @@
 # Include files from /etc/network/interfaces.d:
 # source-directory /etc/network/interfaces.d
 
+# Ethernet
+auto eth0
+allow-hotplug eth0
+iface eth0 inet manual
+
 # WLAN
 allow-hotplug wlan0
 auto wlan0
 iface wlan0 inet manual
+wireless-power off
 
 # Netzwerkbrücke
 auto br0
-iface br0 inet manual
+iface br0 inet static
 bridge_ports eth0 wlan0
 bridge_fd 0             # no forwarding delay
 bridge_stp off          # disable Spanning Tree Protocol
+netmask 255.255.255.0

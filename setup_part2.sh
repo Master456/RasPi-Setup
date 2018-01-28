@@ -21,14 +21,11 @@ ausfuehren () {
 schritt4 () {
   echo "Schritt 3 von 5: Netzwerk wird eingerichtet ..."
   sudo systemctl stop dhcpcd
-  sudo echo "denyinterfaces wlan0" >> /etc/dhcpcd.conf
-  sudo echo "denyinterfaces eth0" >> /etc/dhcpcd.conf
-  sudo echo "interface br0" >> /etc/dhcpcd.conf
-  sudo echo "static ip_address=$ip/24" >> /etc/dhcpcd.conf
-  sudo echo "static routers=$gateway" >> /etc/dhcpcd.conf
-  sudo systemctl start dhcpcd
+  sudo systemctl disable dhcpcd
   sudo rm /etc/network/interfaces
   sudo cp /home/pi/RasPi-Einrichtung/interfaces /etc/network/interfaces
+  sudo echo "address $ip" >> /etc/network/interfaces
+  sudo echo "gateway $gateway" >> /etc/network/interfaces
 }
 
 schritt5 () {
@@ -42,8 +39,6 @@ schritt5 () {
     "y") sudo echo "ignore_broadcast_ssid=1" >> /etc/hostapd/hostapd.conf ;;
     "n") sudo echo "ignore_broadcast_ssid=0" >> /etc/hostapd/hostapd.conf ;;
   esac
-  sudo brctl addbr br0
-  sudo brctl addif br0 eth0 wlan0
 }
 
 schritt6 () {
