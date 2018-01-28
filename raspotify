@@ -1,8 +1,5 @@
 # /etc/default/raspotify -- Arguments for librespot
 
-# Device name on Spotify Connect
-DEVICE_NAME="SpotiPi"
-
 # Bitrate, one of 96 (low quality), 160 (default quality), or 320 (high quality)
 BITRATE="320"
 
@@ -16,8 +13,9 @@ BITRATE="320"
 # To choose a different output device (ie a USB audio dongle or HDMI audio out),
 # use `--device` with something like `--device hw:0,1`. Your mileage may vary.
 #
-OPTIONS="--device hw:1,0"
 
 # Uncomment to use a cache for downloaded audio files. It's best to leave this
 # as-is since permissions are properly set on directory `/var/cache/raspotify'.
 #CACHE_ARGS="--cache /var/cache/raspotify"
+
+# Device name on Spotify Connect and Options

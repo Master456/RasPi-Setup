@@ -59,8 +59,7 @@ schritt3 () {
 schritt4 () {
   echo "Schritt 4 von 6: Netzwerk wird eingerichtet ..."
   sudo systemctl stop hostapd
-  sudo rm /etc/dhcpcd.conf
-  sudo cp dhcpcd.conf /etc/dhcpcd.conf
+  sudo echo -e "denyinterfaces wlan0\n\tdenyinterfaces eth0\n\t \n\tinterface br0" >> /etc/dhcpcd.conf
   sudo echo "static ip_address=$ip/24" >> /etc/dhcpcd.conf
   sudo echo "static routers=$gateway" >> /etc/dhcpcd.conf
   sudo rm /etc/network/interfaces
@@ -69,12 +68,11 @@ schritt4 () {
 
 schritt5 () {
   echo "Schritt 5 von 6: Hotspot wird eingerichtet ..."
-  sudo rm /etc/default/hostapd
-  sudo cp hostapd /etc/default/hostapd
+  sudo echo "DAEMON_CONF="/etc/hostapd/hostapd.conf"" >> /etc/default/hostapd
   sudo cp hostapd.conf /etc/hostapd/hostapd.conf
   sudo echo "ssid=$ssid" >> /etc/hostapd/hostapd.conf
-  sudo echo "wpa_passphrase=$passwort"
-  sudo echo "channel=$channel"
+  sudo echo "wpa_passphrase=$passwort" >> /etc/hostapd/hostapd.conf
+  sudo echo "channel=$channel" >> /etc/hostapd/hostapd.conf
   case $broadcast in
     "y") sudo echo "ignore_broadcast_ssid=1" >> /etc/hostapd/hostapd.conf ;;
     "n") sudo echo "ignore_broadcast_ssid=0" >> /etc/hostapd/hostapd.conf ;;
