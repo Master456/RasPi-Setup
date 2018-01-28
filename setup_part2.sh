@@ -12,15 +12,15 @@ abfragen () {
 }
 
 pruefen () {
-  if [[ "$ipv6" = "y" -o "$ipv6" = "n" ]]; then
+  if [ "$ipv6" = "y" -o "$ipv6" = "n" ]; then
     echo "Eingabe 1 Korrekt!"
   else echo "Ungültige Eingabe für Frage 1! Starten Sie das Programm neu." && exit
   fi
-  if [[ "$broadcast" = "y" -o "$broadcast" = "n" ]]; then
+  if [ "$broadcast" = "y" -o "$broadcast" = "n" ]; then
     echo "Eingabe 5 Korrekt!"
   else echo "Ungültige Eingabe für Frage 5! Starten Sie das Programm neu." && exit
   fi
-  if [[ "$audio" = "y" -o "$audio" = "n" ]]; then
+  if [ "$audio" = "y" -o "$audio" = "n" ]; then
     echo "Eingabe 9 Korrekt!"
   else echo "Ungültige Eingabe für Frage 9! Starten Sie das Programm neu." && exit
   fi
@@ -73,7 +73,7 @@ abschluss () {
   echo "Einrichtung wird abgeschlossen ..."
   sudo raspi-config
   read -p "Soll der Raspberry Pi neu gestartet werden? (y/n) " reboot
-  if [[ "$reboot" = "y" ]]; then
+  if [ "$reboot" = "y" ]; then
     sudo reboot
   fi
 }
