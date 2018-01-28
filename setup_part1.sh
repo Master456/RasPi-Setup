@@ -10,7 +10,7 @@ ausfuehren () {
 }
 
 schritt1 () {
-  echo "Schritt 1 von 4: Installiere Updates ..."
+  echo "Schritt 1 von 5: Installiere Updates ..."
   if [ "$ipv6" = "y" ]
     then sudo echo "net.ipv6.conf.all.disable_ipv6 = 1" >> /etc/sysctl.conf && sudo sysctl -p
   fi
@@ -19,7 +19,7 @@ schritt1 () {
 }
 
 schritt2 () {
-  echo "Schritt 2 von 4: Benötigte Programme werden installiert ..."
+  echo "Schritt 2 von 5: Benötigte Programme werden installiert ..."
   sudo apt -y install hostapd bridge-utils git
   echo "Lade benötigte Dateien herunter ..."
   git clone https://github.com/Master456/RasPi-Einrichtung.git /home/pi/RasPi-Einrichtung
@@ -27,5 +27,5 @@ schritt2 () {
 
 abfragen
 ausfuehren
-echo "Run: sudo sh /home/pi/RasPi-Einrichtung/setup_part2.sh"
+echo "Run: 'sudo sh /home/pi/RasPi-Einrichtung/setup_part2.sh' to continue."
 exit
