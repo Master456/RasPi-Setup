@@ -5,7 +5,7 @@ abfragen () {
   read -p "Welche IP-Adresse soll als Gateway konfiguriert werden? " gateway
   read -p "Geben Sie die SSID, welche dem Hotspot zugewiesen werden soll: " ssid
   read -p "Soll der SSID-Broadcast deaktiviert werden? (y/n) " broadcast
-  read -s -p "Geben sie das Passwort für den Hotspot ein: " passwort
+  read -p "Geben sie das Passwort für den Hotspot ein: " passwort
   read -p "Auf welchem Kanal soll gesendet werden? (1-9) " channel
   read -p "Wie soll der Spotify-Connect Server Heißen? " name
   read -p "Wollen Sie eine USB-Audio Karte als Standartausgabe Festlegen? (y/n) " audio
