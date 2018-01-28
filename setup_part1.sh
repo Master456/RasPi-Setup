@@ -1,16 +1,16 @@
 #!bin/bash
-abfragen () {
-  echo "Einstellungsmöglichkeiten werden abgefragt ..."
-  read -p "Soll IPv6 global deaktiviert werden? (y/n) " ipv6
+input () {
+  echo "Getting settings ..."
+  read -p "Do You want to disable IPv6 globaly? (y/n) " ipv6
 }
 
-ausfuehren () {
-  schritt1
-  schritt2
+run () {
+  step1
+  step2
 }
 
-schritt1 () {
-  echo "Schritt 1 von 5: Installiere Updates ..."
+step1 () {
+  echo "Step 1 of 5: Installing updates ..."
   if [ "$ipv6" = "y" ]
     then sudo echo "net.ipv6.conf.all.disable_ipv6 = 1" >> /etc/sysctl.conf && sudo sysctl -p
   fi
@@ -18,14 +18,14 @@ schritt1 () {
   sudo apt -y full-upgrade
 }
 
-schritt2 () {
-  echo "Schritt 2 von 5: Benötigte Programme werden installiert ..."
+step2 () {
+  echo "Step 2 of 5: Installing the needed programms..."
   sudo apt -y install hostapd bridge-utils git
-  echo "Lade benötigte Dateien herunter ..."
+  echo "Getting additional files ..."
   git clone https://github.com/Master456/RasPi-Einrichtung.git /home/pi/RasPi-Einrichtung
 }
 
-abfragen
-ausfuehren
+input
+run
 echo "Run: 'sudo sh /home/pi/RasPi-Einrichtung/setup_part2.sh' to continue."
 exit

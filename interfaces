@@ -11,13 +11,13 @@ auto eth0
 allow-hotplug eth0
 iface eth0 inet manual
 
-# WLAN
+# Wi-Fi
 allow-hotplug wlan0
 auto wlan0
 iface wlan0 inet manual
 wireless-power off
 
-# Netzwerkbrücke
+# Networkbridge
 auto br0
 iface br0 inet static
 bridge_ports eth0 wlan0
