@@ -19,11 +19,7 @@ step1 () {
 }
 
 step2 () {
-<<<<<<< HEAD
-  echo "Step 2 of 5: Installing the needed programms ..."
-=======
   echo "Step 2 of 5: Installing the needed programms..."
->>>>>>> f1b27d84fc2f8782eca05529bf62a4e5be9ce30b
   sudo apt -y install hostapd bridge-utils git
   echo "Getting additional files ..."
   git clone https://github.com/Master456/RasPi-Einrichtung.git /home/pi/RasPi-Einrichtung
@@ -31,5 +27,6 @@ step2 () {
 
 input
 run
-echo "Run: 'sudo sh /home/pi/RasPi-Einrichtung/setup_part2.sh' to continue."
+echo Run: 'sudo sh /home/pi/RasPi-Einrichtung/setup_part2.sh' to continue.
+
 exit

@@ -9,6 +9,8 @@ input () {
   read -p "Wich channel should be used? (1-9) " channel
   read -p "What name should be assigned to the Spotify-Connect server? " name
   read -p "Do You want to set an USB-soundcard as output? (y/n) " audio
+  read -p "Do you want to set an initial volume? (y/n)" volumeyn
+
 }
 
 run () {
@@ -24,17 +26,14 @@ step3 () {
   sudo systemctl disable dhcpcd
   sudo rm /etc/network/interfaces
   sudo cp /home/pi/RasPi-Einrichtung/interfaces /etc/network/interfaces
-  sudo echo "address $ip" >> /etc/network/interfaces
-  sudo echo "gateway $gateway" >> /etc/network/interfaces
+  sudo echo "address $ip\ngateway $gateway" >> /etc/network/interfaces
 }
 
 step4 () {
   echo "Step 4 of 5: Setting up: hotspot ..."
   sudo echo "DAEMON_CONF="/etc/hostapd/hostapd.conf"" >> /etc/default/hostapd
   sudo cp /home/pi/RasPi-Einrichtung/hostapd.conf /etc/hostapd/hostapd.conf
-  sudo echo "ssid=$ssid" >> /etc/hostapd/hostapd.conf
-  sudo echo "wpa_passphrase=$passwort" >> /etc/hostapd/hostapd.conf
-  sudo echo "channel=$channel" >> /etc/hostapd/hostapd.conf
+  sudo echo "ssid=$ssid\nwpa_passphrase=$passwort\nchannel=$channel" >> /etc/hostapd/hostapd.conf
   case $broadcast in
     "y") sudo echo "ignore_broadcast_ssid=1" >> /etc/hostapd/hostapd.conf ;;
     "n") sudo echo "ignore_broadcast_ssid=0" >> /etc/hostapd/hostapd.conf ;;
@@ -46,9 +45,15 @@ step5 () {
   sudo curl -sL https://dtcooper.github.io/raspotify/install.sh | sh
   sudo rm /etc/default/raspotify
   sudo cp /home/pi/RasPi-Einrichtung/raspotify /etc/default/raspotify
-  sudo echo "DEVICE_NAME="$name"" >> /etc/default/raspotify
+  sudo echo -e "DEVICE_NAME="$name"\n " >> /etc/default/raspotify
   if [ "$audio" = "y" ]
     then sudo echo "OPTIONS="--device hw:1,0"" >> /etc/default/raspotify
+  fi
+  if [ "$volumeyn" = "y" ]
+    then {
+      read -p "How high should the volume be? (0-100) " volume
+      sudo echo "VOLUME_ARGS="--enable-volume-normalisation --initial-volume "$volume""" >> /etc/default/raspotify
+    }
   fi
 }
 
