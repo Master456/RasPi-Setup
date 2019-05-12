@@ -18,7 +18,7 @@ run () {
   step3
   step4
   step5
-  finalize
+  #finalize
 }
 
 step1 () {
