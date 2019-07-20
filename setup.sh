@@ -42,13 +42,9 @@ step3 () {
   sudo systemctl stop dhcpcd
   sudo systemctl disable dhcpcd
   sudo rm /etc/network/interfaces
-  sudo rm /etc/wpa_supplicant/wpa_supplicant.conf
   sudo cp /home/pi/RasPi-Einrichtung/interfaces /etc/network/interfaces
-  sudo cp /home/pi/RasPi-Einrichtung/wpa_supplicant.conf /etc/wpa_supplicant/wpa_supplicant.conf
   sudo echo "address $ip" >> /etc/network/interfaces
   sudo echo "gateway $gateway" >> /etc/network/interfaces
-  sudo echo " ssid=$rep_ssid" >> /etc/wpa_supplicant/wpa_supplicant.conf
-  sudo echo " psk=$rep_pw" >> /etc/wpa_supplicant/wpa_supplicant.conf
 }
 
 step4 () {
@@ -69,7 +65,7 @@ step5 () {
   sudo curl -sL https://dtcooper.github.io/raspotify/install.sh | sh
   sudo rm /etc/default/raspotify
   sudo cp /home/pi/RasPi-Einrichtung/raspotify /etc/default/raspotify
-  sudo echo -e "DEVICE_NAME="$name"\n " >> /etc/default/raspotify
+  sudo echo -e "DEVICE_NAME="$name"" >> /etc/default/raspotify
   if [ "$audio" = "y" ]
     then sudo echo "OPTIONS="--device hw:1,0"" >> /etc/default/raspotify
   fi
