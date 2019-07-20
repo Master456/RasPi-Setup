@@ -42,15 +42,22 @@ step3 () {
   sudo systemctl stop dhcpcd
   sudo systemctl disable dhcpcd
   sudo rm /etc/network/interfaces
+  sudo rm /etc/wpa_supplicant/wpa_supplicant.conf
   sudo cp /home/pi/RasPi-Einrichtung/interfaces /etc/network/interfaces
-  sudo echo "address $ip\ngateway $gateway" >> /etc/network/interfaces
+  sudo cp /home/pi/RasPi-Einrichtung/wpa_supplicant.conf /etc/wpa_supplicant/wpa_supplicant.conf
+  sudo echo "address $ip" >> /etc/network/interfaces
+  sudo echo "gateway $gateway" >> /etc/network/interfaces
+  sudo echo " ssid=$rep_ssid" >> /etc/wpa_supplicant/wpa_supplicant.conf
+  sudo echo " psk=$rep_pw" >> /etc/wpa_supplicant/wpa_supplicant.conf
 }
 
 step4 () {
   echo "Step 4 of 5: Setting up: hotspot ..."
   sudo echo "DAEMON_CONF="/etc/hostapd/hostapd.conf"" >> /etc/default/hostapd
   sudo cp /home/pi/RasPi-Einrichtung/hostapd.conf /etc/hostapd/hostapd.conf
-  sudo echo "ssid=$ssid\nwpa_passphrase=$passwort\nchannel=$channel" >> /etc/hostapd/hostapd.conf
+  sudo echo "ssid=$ssid" >> /etc/hostapd/hostapd.conf
+  sudo echo "wpa_passphrase=$password" >> /etc/hostapd/hostapd.conf
+  sudo echo "channel=$channel" >> /etc/hostapd/hostapd.conf
   case $broadcast in
     "y") sudo echo "ignore_broadcast_ssid=1" >> /etc/hostapd/hostapd.conf ;;
     "n") sudo echo "ignore_broadcast_ssid=0" >> /etc/hostapd/hostapd.conf ;;
