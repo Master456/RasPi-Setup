@@ -59,6 +59,8 @@ step4 () {
     "y") sudo echo "ignore_broadcast_ssid=1" >> /etc/hostapd/hostapd.conf ;;
     "n") sudo echo "ignore_broadcast_ssid=0" >> /etc/hostapd/hostapd.conf ;;
   esac
+  sudo systemctl unmask hostapd.service
+  sudo systemctl enable hostapd.service
 }
 
 step5 () {
