@@ -1,3 +1,5 @@
+#!/bin/sh
+
 input () {
   echo "Getting settings ..."
   read -p "Do You want to disable IPv6 globaly? (y/n) " ipv6
