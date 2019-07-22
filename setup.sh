@@ -53,7 +53,7 @@ step4 () {
   sudo echo "DAEMON_CONF="/etc/hostapd/hostapd.conf"" >> /etc/default/hostapd
   sudo cp /home/pi/RasPi-Einrichtung/hostapd.conf /etc/hostapd/hostapd.conf
   sudo echo "ssid=$ssid" >> /etc/hostapd/hostapd.conf
-  sudo echo "wpa_passphrase=$password" >> /etc/hostapd/hostapd.conf
+  sudo echo "wpa_passphrase=$passwort" >> /etc/hostapd/hostapd.conf
   sudo echo "channel=$channel" >> /etc/hostapd/hostapd.conf
   case $broadcast in
     "y") sudo echo "ignore_broadcast_ssid=1" >> /etc/hostapd/hostapd.conf ;;
