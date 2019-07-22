@@ -18,7 +18,6 @@ run () {
   step3
   step4
   step5
-  #finalize
 }
 
 step1 () {
@@ -34,7 +33,7 @@ step2 () {
   echo "Step 2 of 5: Installing the needed programms..."
   sudo apt -y install hostapd bridge-utils git
   echo "Getting additional files ..."
-  git clone https://github.com/Master456/RasPi-Einrichtung.git /home/pi/RasPi-Einrichtung
+  git clone https://github.com/Master456/RasPi-Setup.git /home/pi/RasPi-Einrichtung
 }
 
 step3 () {
@@ -75,11 +74,6 @@ step5 () {
       sudo echo "VOLUME_ARGS="--enable-volume-normalisation --initial-volume "$volume""" >> /etc/default/raspotify
     }
   fi
-}
-
-finalize () {
-  echo "Finalizing setup ..."
-  sudo raspi-config
 }
 
 input
